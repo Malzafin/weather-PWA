@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather PWA</title>
+
+    <!-- PWA manifest  -->
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <!-- Global styles -->
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Weather PWA</h1>
+      <nav aria-label="Main navigation">
+        <a href="#home" id="nav-home">Home</a>
+        <a href="#details" id="nav-details">Details</a>
+        <a href="#settings" id="nav-settings">Settings</a>
+      </nav>
+    </header>
+    <main id="app" role="main">
+      <section id="home" data-screen="home">
+        <h2>Home</h2>
+        <p>(current weather will appear here)</p>
+      </section>
+
+      <section id="details" data-screen="details" hidden>
+        <h2>Details</h2>
+        <p>(weather details)</p>
+      </section>
+
+      <section id="settings" data-screen="settings" hidden>
+        <h2>Settings / History</h2>
+        <p>(notification, auto-ref, history)</p>
+      </section>
+    </main>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
