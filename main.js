@@ -1,3 +1,9 @@
+// Importy UI i stanu
+import { getState, updateWeather } from './state/weatherState.js';
+import { initHome } from './ui/renderHome.js';
+import { initDetails } from './ui/renderDetails.js';
+import { initSettings } from './ui/renderSettings.js';
+
 // Router: sekcje i linki
 function collectScreens() {
     const byData = [...document.querySelectorAll('section[data-screen]')];
@@ -21,10 +27,14 @@ function showScreen(id) {
     });
 }
 
-// Router: start
+// Start
 function boot() {
     SCREENS = collectScreens();
+    initHome();
+    initDetails();
+    initSettings();
     showScreen(getActiveId());
+    if (getState().status === 'idle') updateWeather();
 }
 window.addEventListener('hashchange', () => showScreen(getActiveId()));
 if (document.readyState === 'loading') {
