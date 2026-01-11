@@ -1,3 +1,6 @@
+import { getLocation, fetchOpenWeather } from '../services/weather.js';
+
+
 // State: dane początkowe
 const initialState = {
     status: 'idle',
@@ -59,4 +62,23 @@ export function clearError() {
 }
 
 // Akcje: aktualizacja pogody (uzupełnimy w następnym kroku)
-export async function updateWeather() {}
+export async function updateWeather() {
+    setState({ status: 'loading' });
+    try {
+        clearError();
+        const { lat, lon } = await getLocation();
+        const w = await fetchOpenWeather({ lat, lon });
+        setState({
+            status: 'ready',
+            location: { lat, lon, city: w.city, district: null },
+            current: { temp: w.temp, description: w.description, icon: w.icon },
+            updatedAt: Date.now()
+        });
+    } catch (err) {
+        const hasCache = !!state.current && !!state.location;
+        setState({
+            status: hasCache ? 'ready' : 'error',
+            error: String(err)
+        });
+    }
+}
