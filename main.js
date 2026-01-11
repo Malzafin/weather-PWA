@@ -44,3 +44,8 @@ if (document.readyState === 'loading') {
 } else {
     boot();
 }
+
+// PWA: rejestracja Service Workera
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+}
