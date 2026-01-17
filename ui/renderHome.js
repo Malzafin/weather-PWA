@@ -18,13 +18,14 @@ function view(s) {
     const temp = s.current?.temp != null ? `${s.current.temp}°C` : '—';
     const when = s.updatedAt ? new Date(s.updatedAt).toLocaleTimeString() : '';
     const loading = s.status === 'loading';
+    const offline = !navigator.onLine;
+    const label = offline ? 'Offline' : (loading ? 'Refreshing…' : 'Refresh');
     return `
     <p><strong>Location:</strong> ${city}</p>
     <p><strong>Temperature:</strong> ${temp}</p>
     ${when ? `<p><small>Updated: ${when}</small></p>` : ''}
     ${s.error ? `<p style="color:#b00020"><small>${s.error}</small></p>` : ''}
-    <button id="btn-refresh" ${loading ? 'disabled' : ''}>
-      ${loading ? 'Refreshing…' : 'Refresh'}
+    <button id="btn-refresh" ${loading || offline ? 'disabled' : ''}>${label}</button>
     </button>
   `;
 }

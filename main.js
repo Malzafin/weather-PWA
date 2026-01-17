@@ -3,6 +3,8 @@ import { getState, updateWeather } from './state/weatherState.js';
 import { initHome } from './ui/renderHome.js';
 import { initDetails } from './ui/renderDetails.js';
 import { initSettings } from './ui/renderSettings.js';
+import {initOfflineBanner } from './ui/offlineBanner.js';
+
 
 // Router: sekcje i linki
 function collectScreens() {
@@ -30,6 +32,7 @@ function showScreen(id) {
 // Start
 function boot() {
     SCREENS = collectScreens();
+    initOfflineBanner();
     initHome();
     initDetails();
     initSettings();

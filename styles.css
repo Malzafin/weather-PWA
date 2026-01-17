@@ -48,3 +48,13 @@ main {
     margin: 0 auto;
     padding: 16px;
 }
+
+#offline-bar{
+    display:none;
+    position:sticky;
+    top:0;z-index:1000;
+    background:#b00020;
+    color:#fff;
+    padding:8px 16px;
+    text-align:center
+}

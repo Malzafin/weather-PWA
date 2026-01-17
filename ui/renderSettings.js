@@ -24,8 +24,7 @@ function view(s) {
     <div>
       <p><strong>Last update:</strong> ${when}</p>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button id="btn-refresh-settings" ${offline ? 'disabled' : ''}>
-          ${offline ? 'Offline' : 'Refresh'}
+        <button id="btn-refresh-settings" ${offline ? 'disabled' : ''}>Refresh</button>
         </button>
         <button id="btn-clear">Clear saved data</button>
         <button id="btn-notif-enable" ${perm === 'granted' ? 'disabled' : ''}>Enable notifications</button>
