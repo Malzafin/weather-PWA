@@ -4,6 +4,8 @@ import { initHome } from './ui/renderHome.js';
 import { initDetails } from './ui/renderDetails.js';
 import { initSettings } from './ui/renderSettings.js';
 import {initOfflineBanner } from './ui/offlineBanner.js';
+import { hookInstallEvents } from './services/install.js';
+
 
 
 // Router: sekcje i linki
@@ -32,6 +34,7 @@ function showScreen(id) {
 // Start
 function boot() {
     SCREENS = collectScreens();
+    hookInstallEvents();
     initOfflineBanner();
     initHome();
     initDetails();
