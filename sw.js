@@ -11,6 +11,7 @@ const APP_SHELL = [
     'ui/renderSettings.js',
     'state/weatherState.js',
     'services/weather.js',
+    'services/notifications.js',
     'icons/icon-192.png',
     'icons/icon-512.png'
 ];

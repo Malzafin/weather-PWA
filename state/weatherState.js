@@ -1,5 +1,5 @@
 import { getLocation, fetchOpenWeather } from '../services/weather.js';
-
+import { notify } from '../services/notifications.js';
 
 // State: dane początkowe
 const initialState = {
@@ -74,11 +74,18 @@ export async function updateWeather() {
             current: { temp: w.temp, description: w.description, icon: w.icon },
             updatedAt: Date.now()
         });
+        await notify('Weather updated' , {
+            body: `${w.city ?? ''}: ${w.temp}°C ${w.description}`.trim()
+        });
     } catch (err) {
         const hasCache = !!state.current && !!state.location;
-        setState({
-            status: hasCache ? 'ready' : 'error',
-            error: String(err)
-        });
+        if (hasCache) {
+            setState({
+                status: 'ready', error: String(err)});
+
+        } else {
+           setError(err);
+        }
+
     }
 }
