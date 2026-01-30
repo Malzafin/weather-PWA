@@ -1,4 +1,4 @@
-import { getLocation, fetchOpenWeather } from '../services/weather.js';
+import { getLocation, fetchOpenWeather, fetchOpenWeatherByCity } from '../services/weather.js';
 import { notify } from '../services/notifications.js';
 
 // State: dane początkowe
@@ -61,31 +61,44 @@ export function clearError() {
     setState({ error: null });
 }
 
-// Akcje: aktualizacja pogody (uzupełnimy w następnym kroku)
+const FALLBACK_CITY = 'Warsaw'
+
+// Akcje: aktualizacja pogody
 export async function updateWeather() {
     setState({ status: 'loading' });
+    clearError();
+
     try {
-        clearError();
-        const { lat, lon } = await getLocation();
-        const w = await fetchOpenWeather({ lat, lon });
+        let w;
+        try {
+            const { lat, lon } = await getLocation();
+            w = await fetchOpenWeather({ lat, lon });
+            setState({ location: { lat, lon, city: w.city, district: null } });
+        } catch (geoErr) {
+
+            w = await fetchOpenWeatherByCity(FALLBACK_CITY);
+            setState({ location: { lat: null, lon: null, city: w.city, district: null } });
+        }
+
+        // stan aplikacji
         setState({
             status: 'ready',
-            location: { lat, lon, city: w.city, district: null },
             current: { temp: w.temp, description: w.description, icon: w.icon },
-            updatedAt: Date.now()
+            updatedAt: Date.now(),
+            error: null
         });
-        await notify('Weather updated' , {
+
+
+        await notify('Weather updated', {
             body: `${w.city ?? ''}: ${w.temp}°C ${w.description}`.trim()
         });
+
     } catch (err) {
         const hasCache = !!state.current && !!state.location;
         if (hasCache) {
-            setState({
-                status: 'ready', error: String(err)});
-
+            setState({ status: 'ready', error: String(err) });
         } else {
-           setError(err);
+            setError(err);
         }
-
     }
 }

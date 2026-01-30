@@ -3,13 +3,11 @@ import importPlugin from 'eslint-plugin-import';
 import prettierPlugin from 'eslint-plugin-prettier';
 
 export default [
-  // zamiast .eslintignore
   { ignores: ['node_modules/**', 'dist/**', 'build/**', '.idea/**'] },
 
-  // rekomendowane reguły JS (ESLint 9)
+
   js.configs.recommended,
 
-  // ustawienia wspólne dla .js
   {
     files: ['**/*.js'],
     languageOptions: {
@@ -35,7 +33,7 @@ export default [
     },
   },
 
-  // doprecyzowanie dla service workera
+
   {
     files: ['sw.js'],
     languageOptions: {

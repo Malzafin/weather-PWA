@@ -26,7 +26,6 @@ function view(s) {
     ${when ? `<p><small>Updated: ${when}</small></p>` : ''}
     ${s.error ? `<p style="color:#b00020"><small>${s.error}</small></p>` : ''}
     <button id="btn-refresh" ${loading || offline ? 'disabled' : ''}>${label}</button>
-    </button>
   `;
 }
 

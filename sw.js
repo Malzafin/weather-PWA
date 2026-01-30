@@ -1,5 +1,5 @@
 // Cache: nazwa i pliki aplikacji
-const CACHE_NAME = 'weather-pwa-v3';
+const CACHE_NAME = 'weather-pwa-v4';
 const APP_SHELL = [
     'index.html',
     'styles.css',
@@ -12,6 +12,8 @@ const APP_SHELL = [
     'state/weatherState.js',
     'services/weather.js',
     'services/notifications.js',
+    'ui/offlineBanner.js',
+    'services/install.js',
     'icons/icon-192.png',
     'icons/icon-512.png'
 ];
@@ -78,7 +80,7 @@ function handleCacheFirst(event) {
 // Obsługa fetch
 self.addEventListener('fetch', (event) => {
     const req = event.request;
-    if (!isHttpGet(req)) return; // ignoruj chrome-extension:, data:, blob:, POST, itp.
+    if (!isHttpGet(req)) return;
 
     const url = new URL(req.url);
 

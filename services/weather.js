@@ -21,20 +21,34 @@ export function getLocation(options = {}) {
     });
 }
 
-// Pogoda: pobranie z OpenWeather
 export async function fetchOpenWeather({ lat, lon }) {
-    const url =
-        `${OWM_BASE}?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}` +
-        `&units=metric&lang=en&appid=${OWM_API_KEY}`;
+    if (lat == null || lon == null) throw new Error('Missing coordinates');
+    const url = `${OWM_BASE}?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&units=metric&lang=en&appid=${OWM_API_KEY}`;
 
     const res = await fetch(url);
     if (!res.ok) throw new Error(`OpenWeather error ${res.status}`);
     const data = await res.json();
-
-    const w = Array.isArray(data.weather) && data.weather[0] ? data.weather[0] : null;
+    const w = (data.weather && data.weather[0]) || {};
 
     return {
         city: data.name || null,
+        temp: Math.round(data.main?.temp ?? 0),
+        description: w.description ?? '',
+        icon: w.icon ?? null,
+    };
+}
+
+// Pogoda: pobranie z OpenWeather
+export async function fetchOpenWeatherByCity( city = 'Warsaw') {
+    const url = `${OWM_BASE}?q=${encodeURIComponent(city)}&units=metric&lang=en&appid=${OWM_API_KEY}`;
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`OpenWeather error ${res.status}`);
+    const data = await res.json();
+    const w = data.weather?.[0] ?? {};
+
+    return {
+        city: data.name || city,
         temp: Math.round(data.main?.temp ?? 0),
         description: w?.description ?? '',
         icon: w?.icon ?? null

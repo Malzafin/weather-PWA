@@ -3,7 +3,7 @@ export function initOfflineBanner() {
     if (!bar) {
         bar = document.createElement('div');
         bar.id = 'offline-bar';
-        bar.textContent = 'Offilne mode: showing cached data';
+        bar.textContent = 'Offline mode: showing cached data';
         document.body.prepend(bar);
     }
     function sync(){
