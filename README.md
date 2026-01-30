@@ -13,10 +13,9 @@ Projekt przygotowany jako zaliczenie na przedmiot „Języki programowania urzą
 - [Architektura i struktura plików](#architektura-i-struktura-plików)
 - [Technologie](#technologie)
 - [Uruchomienie lokalne](#uruchomienie-lokalne)
-- [Build / Deploy (np. Netlify)](#build--deploy-np-netlify)
+- [Build / Deploy (Netlify)](#build--deploy-netlify)
 - [Jakość](#jakość)
 - [Obsługiwane przeglądarki i instalacja](#obsługiwane-przeglądarki-i-instalacja)
-- [Konfiguracja i sekrety](#konfiguracja-i-sekrety)
 - [Autor](#autor)
 
 ---
