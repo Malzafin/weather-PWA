@@ -14,8 +14,7 @@ Projekt przygotowany jako zaliczenie na przedmiot „Języki programowania urzą
 - [Technologie](#technologie)
 - [Uruchomienie lokalne](#uruchomienie-lokalne)
 - [Build / Deploy (np. Netlify)](#build--deploy-np-netlify)
-- [Mapowanie na wymagania projektu](#mapowanie-na-wymagania-projektu)
-- [Jakość i wydajność (Lighthouse)](#jakość-i-wydajność-lighthouse)
+- [Jakość](#jakość)
 - [Obsługiwane przeglądarki i instalacja](#obsługiwane-przeglądarki-i-instalacja)
 - [Konfiguracja i sekrety](#konfiguracja-i-sekrety)
 - [Autor](#autor)
@@ -134,4 +133,4 @@ W Settings przycisk Install app jest wyszarzany, jeśli przeglądarka nie wspier
 Imię i nazwisko: Mateusz Gajewski
 Numer albumu: 49591
 Kierunek: Informatyka, Rok: 3
-Przedmiot: Tworzenie progresywnych aplikaji mobilnych
+Przedmiot: Tworzenie progresywnych aplikacji mobilnych
