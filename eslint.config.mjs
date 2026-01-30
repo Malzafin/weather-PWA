@@ -1,24 +1,22 @@
+// eslint.config.mjs
 import js from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 import prettierPlugin from 'eslint-plugin-prettier';
+import globals from 'globals';
 
 export default [
   { ignores: ['node_modules/**', 'dist/**', 'build/**', '.idea/**'] },
-
 
   js.configs.recommended,
 
   {
     files: ['**/*.js'],
+
     languageOptions: {
-      ecmaVersion: 2021,
+      ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
-        window: 'readonly',
-        document: 'readonly',
-        navigator: 'readonly',
-        caches: 'readonly',
-        self: 'readonly',
+        ...globals.browser,
       },
     },
     plugins: {
@@ -26,25 +24,31 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrors: 'none',
+        },
+      ],
       'import/no-unresolved': ['error', { ignore: ['^https?://'] }],
-      // traktuj brak zgodności z Prettier jako błąd
+      'no-empty': ['error', { allowEmptyCatch: true }],
       'prettier/prettier': 'error',
     },
   },
 
-
   {
     files: ['sw.js'],
     languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: {
-        self: 'readonly',
-        caches: 'readonly',
-        clients: 'readonly',
-        Response: 'readonly',
-        Request: 'readonly',
+        ...globals.serviceworker,
       },
     },
-    rules: { 'no-restricted-globals': 'off' },
+    rules: {
+      'no-restricted-globals': 'off',
+    },
   },
 ];

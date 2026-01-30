@@ -5,25 +5,25 @@ import { canInstall, requestInstall } from '../services/install.js';
 
 // punkt montowania
 function mountPoint() {
-    const section = document.querySelector('section[data-screen="settings"]');
-    if (!section) return null;
-    let m = section.querySelector('.js-content');
-    if (!m) {
-        m = document.createElement('div');
-        m.className = 'js-content';
-        section.appendChild(m);
-    }
-    return m;
+  const section = document.querySelector('section[data-screen="settings"]');
+  if (!section) return null;
+  let m = section.querySelector('.js-content');
+  if (!m) {
+    m = document.createElement('div');
+    m.className = 'js-content';
+    section.appendChild(m);
+  }
+  return m;
 }
 
 // widok
 function view(s) {
-    const when = s.updatedAt ? new Date(s.updatedAt).toLocaleString() : '—';
-    const perm = permission();
-    const offline = !navigator.onLine;
-    const installReady = canInstall();
+  const when = s.updatedAt ? new Date(s.updatedAt).toLocaleString() : '—';
+  const perm = permission();
+  const offline = !navigator.onLine;
+  const installReady = canInstall();
 
-    return `
+  return `
     <div>
       <p><strong>Last update:</strong> ${when}</p>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -41,46 +41,51 @@ function view(s) {
 
 // render + zdarzenia
 export function renderSettings() {
-    const m = mountPoint();
-    if (!m) return;
-    m.innerHTML = view(getState());
+  const m = mountPoint();
+  if (!m) return;
+  m.innerHTML = view(getState());
 
-    const btnRefresh = m.querySelector('#btn-refresh-settings');
-    const btnClear   = m.querySelector('#btn-clear');
-    const btnEnable  = m.querySelector('#btn-notif-enable');
-    const btnTest    = m.querySelector('#btn-notif-test');
-    const btnInstall = m.querySelector('#btn-install');
+  const btnRefresh = m.querySelector('#btn-refresh-settings');
+  const btnClear = m.querySelector('#btn-clear');
+  const btnEnable = m.querySelector('#btn-notif-enable');
+  const btnTest = m.querySelector('#btn-notif-test');
+  const btnInstall = m.querySelector('#btn-install');
 
-    if (btnRefresh) btnRefresh.addEventListener('click', async () => {
-        await updateWeather();
-        renderSettings();
+  if (btnRefresh)
+    btnRefresh.addEventListener('click', async () => {
+      await updateWeather();
+      renderSettings();
     });
 
-    if (btnClear) btnClear.addEventListener('click', () => {
-        reset();
-        renderSettings();
+  if (btnClear)
+    btnClear.addEventListener('click', () => {
+      reset();
+      renderSettings();
     });
 
-    if (btnEnable) btnEnable.addEventListener('click', async () => {
-        await request();
-        renderSettings();
+  if (btnEnable)
+    btnEnable.addEventListener('click', async () => {
+      await request();
+      renderSettings();
     });
 
-    if (btnTest) btnTest.addEventListener('click', async () => {
-        await notify('Weather PWA', { body: 'Test notification' });
+  if (btnTest)
+    btnTest.addEventListener('click', async () => {
+      await notify('Weather PWA', { body: 'Test notification' });
     });
 
-    if (btnInstall) btnInstall.addEventListener('click', async () => {
-        await requestInstall();
-        renderSettings();
+  if (btnInstall)
+    btnInstall.addEventListener('click', async () => {
+      await requestInstall();
+      renderSettings();
     });
 }
 
 // init
 export function initSettings() {
-    renderSettings();
-    subscribe(() => renderSettings());
-    window.addEventListener('beforeinstallprompt', () => renderSettings());
-    window.addEventListener('appinstalled', () => renderSettings());
-    window.addEventListener('install-choice', () => renderSettings());
+  renderSettings();
+  subscribe(() => renderSettings());
+  window.addEventListener('beforeinstallprompt', () => renderSettings());
+  window.addEventListener('appinstalled', () => renderSettings());
+  window.addEventListener('install-choice', () => renderSettings());
 }

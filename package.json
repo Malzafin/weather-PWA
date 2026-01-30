@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier -w ."
+    "format": "prettier -w .",
+    "both": "npm run lint:fix && npm run format"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,12 @@
   },
   "homepage": "https://github.com/Malzafin/weather-PWA#readme",
   "devDependencies": {
-    "@eslint/js": "^9.37.0",
-    "eslint": "^9.37.0",
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.4",
-    "prettier": "^3.6.2"
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.2.0",
+    "prettier": "^3.8.1"
   }
 }

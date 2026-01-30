@@ -2,29 +2,29 @@
 let deferred = null;
 
 export function hookInstallEvents() {
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferred = e;
-        window.dispatchEvent(new CustomEvent('install-available'));
-    });
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferred = e;
+    window.dispatchEvent(new CustomEvent('install-available'));
+  });
 
-    window.addEventListener('appinstalled', () => {
-        deferred = null;
-        window.dispatchEvent(new CustomEvent('installed'));
-    });
+  window.addEventListener('appinstalled', () => {
+    deferred = null;
+    window.dispatchEvent(new CustomEvent('installed'));
+  });
 }
 
 export function canInstall() {
-    return !!deferred;
+  return !!deferred;
 }
 
 export async function requestInstall() {
-    if (!deferred) return { outcome: 'unavailable' };
-    const ev = deferred;
-    deferred = null;
-    await ev.prompt();
-    const choice = await ev.userChoice;
+  if (!deferred) return { outcome: 'unavailable' };
+  const ev = deferred;
+  deferred = null;
+  await ev.prompt();
+  const choice = await ev.userChoice;
 
-    window.dispatchEvent(new CustomEvent('install-choice', { detail: choice }));
-    return choice;
+  window.dispatchEvent(new CustomEvent('install-choice', { detail: choice }));
+  return choice;
 }

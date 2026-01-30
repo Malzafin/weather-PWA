@@ -3,24 +3,24 @@ import { getState, subscribe, updateWeather } from '../state/weatherState.js';
 
 const section = document.querySelector('section[data-screen="home"]');
 function mountPoint() {
-    if (!section) return null;
-    let m = section.querySelector('.js-content');
-    if (!m) {
-        m = document.createElement('div');
-        m.className = 'js-content';
-        section.appendChild(m);
-    }
-    return m;
+  if (!section) return null;
+  let m = section.querySelector('.js-content');
+  if (!m) {
+    m = document.createElement('div');
+    m.className = 'js-content';
+    section.appendChild(m);
+  }
+  return m;
 }
 
 function view(s) {
-    const city = s.location?.city ?? '—';
-    const temp = s.current?.temp != null ? `${s.current.temp}°C` : '—';
-    const when = s.updatedAt ? new Date(s.updatedAt).toLocaleTimeString() : '';
-    const loading = s.status === 'loading';
-    const offline = !navigator.onLine;
-    const label = offline ? 'Offline' : (loading ? 'Refreshing…' : 'Refresh');
-    return `
+  const city = s.location?.city ?? '—';
+  const temp = s.current?.temp != null ? `${s.current.temp}°C` : '—';
+  const when = s.updatedAt ? new Date(s.updatedAt).toLocaleTimeString() : '';
+  const loading = s.status === 'loading';
+  const offline = !navigator.onLine;
+  const label = offline ? 'Offline' : loading ? 'Refreshing…' : 'Refresh';
+  return `
     <p><strong>Location:</strong> ${city}</p>
     <p><strong>Temperature:</strong> ${temp}</p>
     ${when ? `<p><small>Updated: ${when}</small></p>` : ''}
@@ -30,14 +30,14 @@ function view(s) {
 }
 
 function render(s) {
-    const m = mountPoint();
-    if (!m) return;
-    m.innerHTML = view(s);
-    const btn = m.querySelector('#btn-refresh');
-    if (btn) btn.addEventListener('click', () => updateWeather());
+  const m = mountPoint();
+  if (!m) return;
+  m.innerHTML = view(s);
+  const btn = m.querySelector('#btn-refresh');
+  if (btn) btn.addEventListener('click', () => updateWeather());
 }
 
 export function initHome() {
-    render(getState());
-    subscribe(render);
+  render(getState());
+  subscribe(render);
 }
