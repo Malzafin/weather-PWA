@@ -72,7 +72,7 @@ Projekt przygotowany jako zaliczenie na przedmiot „Języki programowania urzą
 - **OpenWeatherMap API** (REST JSON)
 
 ---
-
+ 
 ## Uruchomienie lokalne
 
 > Service Worker wymaga protokołu **http(s)** – nie uruchamiaj z `file://`.
